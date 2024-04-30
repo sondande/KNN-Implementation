@@ -48,35 +48,6 @@ def euclidean_distance(x: list, y: list) -> float:
     """
     return sum((x_i - y_i) ** 2 for x_i, y_i in zip(x[1:], y[1:]))
 
-
-def minkowski_distance(x: list, y: list, p_value: int) -> float:
-    """
-    Calculate Distance using Minkowski distance
-
-    Parameters:
-        x (list): The first vector.
-        y (list): The second vector.
-
-    Returns:
-        float: The Minkowski distance between vectors x and y.
-    """
-    return sum(abs(x_i - y_i) ** p_value for x_i, y_i in zip(x[1:], y[1:])) ** (1 / p_value)
-
-
-def chebyshev_distance(x: list, y: list) -> float:
-    """
-    Calculate Distance using Chebyshev distance
-
-    Parameters:
-        x (list): The first vector.
-        y (list): The second vector.
-
-    Returns:
-        float: The Chebyshev distance between vectors x and y.
-    """
-    return max(abs(xi - y_i) for xi, y_i in zip(x[1:], y[1:]))
-
-
 def get_k_nearest(k_value: int, k_instances: dict) -> list:
     """
     Get the k_nearest values for k_instances
@@ -124,10 +95,6 @@ def k_nearest_neighbors(
         for x_train_instance in training_set:
             if distance_choice == "H":
                 dist = hamming_distance(x_test_instance, x_train_instance)
-            elif distance_choice == "M":
-                dist = minkowski_distance(x_test_instance, x_train_instance, p_value)
-            elif distance_choice == "C":
-                dist = chebyshev_distance(x_test_instance, x_train_instance)
             else:
                 dist = euclidean_distance(x_test_instance, x_train_instance)
             # Create list of k_instances with key is distance and value is list of labels with that distance
@@ -285,37 +252,12 @@ def main():
     start = time.time()
 
     parser = argparse.ArgumentParser(description="Run K-Nearest Neighbors Algorithm.")
-    parser.add_argument(
-        "-f", "--filename", type=str, required=True, help="File Path to the dataset file."
-    )
-    parser.add_argument(
-        "-d",
-        "--distance_function",
-        type=str,
-        required=True,
-        choices=["H", "E", "M", "C"],
-        help="Distance function: 'H' for Hamming, 'E' for Euclidean, 'M' for Minkowski, 'C' for Chebyshev.",
-    )
-    parser.add_argument(
-        "-k", "--k_value", type=int, required=True, help="The number of nearest neighbors."
-    )
-    parser.add_argument(
-        "-p",
-        "--p_value",
-        type=int,
-        default=2,
-        help="The order 'p' of the Minkowski distance. Default is 2 to calculate Euclidean Distance.",
-    )
-    parser.add_argument(
-        "-t",
-        "--train_percent",
-        type=float,
-        required=True,
-        help="The percentage of the dataset to use for training as a decimal.",
-    )
-    parser.add_argument(
-        "-r", "--random_seed", default=1, type=int, help="Random seed for shuffling the data."
-    )
+    parser.add_argument("-f", "--filename", type=str, required=True, help="File Path to the dataset file.")
+    parser.add_argument("-d","--distance_function",type=str,required=True,choices=["H", "E"],help="Distance function: 'H' for Hamming, 'E' for Euclidean.",)
+    parser.add_argument("-k", "--k_value", type=int, required=True, help="The number of nearest neighbors.")
+    parser.add_argument("-p", "--p_value", type=int, default=2, help="The order 'p' of the Minkowski distance. Default is 2 to calculate Euclidean Distance.",)
+    parser.add_argument("-t","--train_percent",type=float,required=True,help="The percentage of the dataset to use for training as a decimal.",)
+    parser.add_argument("-r", "--random_seed", default=1, type=int, help="Random seed for shuffling the data.")
 
     args = parser.parse_args()
         
