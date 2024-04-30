@@ -255,7 +255,6 @@ def main():
     parser.add_argument("-f", "--filename", type=str, required=True, help="File Path to the dataset file.")
     parser.add_argument("-d","--distance_function",type=str,required=True,choices=["H", "E"],help="Distance function: 'H' for Hamming, 'E' for Euclidean.",)
     parser.add_argument("-k", "--k_value", type=int, required=True, help="The number of nearest neighbors.")
-    parser.add_argument("-p", "--p_value", type=int, default=2, help="The order 'p' of the Minkowski distance. Default is 2 to calculate Euclidean Distance.",)
     parser.add_argument("-t","--train_percent",type=float,required=True,help="The percentage of the dataset to use for training as a decimal.",)
     parser.add_argument("-r", "--random_seed", default=1, type=int, help="Random seed for shuffling the data.")
 
@@ -265,7 +264,6 @@ def main():
     ds_path = os.path.abspath(args.filename)
     dist_choice = args.distance_function.upper()
     k_value = args.k_value
-    p_value = args.p_value
     train_set_percent = args.train_percent
     random_seed = args.random_seed
 
