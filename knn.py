@@ -21,44 +21,13 @@ from sklearn.utils import shuffle
 
 
 def hamming_distance(x: list, y: list) -> float:
-    """
-    Calculate Distance using Hamming Distance
-
-    Parameters:
-        x (list): The first vector.
-        y (list): The second vector.
-
-    Returns:
-        float: The Hamming distance between vectors x and y.
-
-    """
     return sum(x_i != y_i for x_i, y_i in zip(x[1:], y[1:]))
 
 
 def euclidean_distance(x: list, y: list) -> float:
-    """
-    Calculate Distance using Euclidean Distance
-
-    Parameters:
-        x (list): The first vector.
-        y (list): The second vector.
-
-    Returns:
-        float: The Euclidean distance between vectors x and y.
-    """
     return sum((x_i - y_i) ** 2 for x_i, y_i in zip(x[1:], y[1:]))
 
 def get_k_nearest(k_value: int, k_instances: dict) -> list:
-    """
-    Get the k_nearest values for k_instances
-
-    Parameters:
-        kValue (int): k value for k nearest neighbors
-        k_instances (list): The second vector.
-
-    Returns:
-        (list): list of k amount of nearest neighbors 
-    """
     # Create heap queue to get the k smallest elements
     heap = []
     for distance, labels in k_instances.items():
@@ -72,22 +41,8 @@ def get_k_nearest(k_value: int, k_instances: dict) -> list:
     return nearest
 
 
-def k_nearest_neighbors(
-    k_value: int, training_set: list, testing_set, distance_choice, p_value
-) -> list:
-    """
-    KNN Algorithm Implementation Driver Function 
-
-    Args:
-        kValue (int): k value for k nearest neighbors
-        training_set (list): training set used for training the knn model
-        testing_set (list): testing set used to test knn model
-        distance_choice (string): distance formula choice ['H', 'M','C','E']
-        p_value (int): p value used when using Minkowski as distance calculation function
-    """
-    
+def k_nearest_neighbors(k_value: int, training_set: list, testing_set, distance_choice) -> list:
     print("Running KNN Algorithm\n")
-    
     for x_test_instance in testing_set:
         # Use defaultdict to provide default values for missing keys
         k_instances = defaultdict(list)
@@ -117,19 +72,6 @@ def k_nearest_neighbors(
 def confusion_matrix(
     testing_set: list, dsPath: str, k_value: int, random_seed: int, possible_labels: list
 ) -> list:
-    """
-    Generate confusion matrix
-
-    Args:
-        testing_set (list): testing set used in knn model
-        dsPath (str): path to dataset used to be used in output file name
-        k_value (int): k value for k nearest neighbors
-        random_seed (int): random seed used for easy replication of experiment
-        possible_labels (list): list of possible label predications from dataset used in confusion matrix
-
-    Returns:
-        confusion_matrix_result (list): confusion matrix generated as a 2D array
-    """
     # Construct the output file name based on given parameters
     output_file_name = f"results-{os.path.basename(dsPath)}-{k_value}-{random_seed}.csv"
     output_file_path = os.path.join("knn-results", output_file_name)
@@ -179,15 +121,6 @@ def confusion_matrix(
 
 
 def calculate_stats(confusion_matrix: list) -> None:
-    """
-    Calculate the following stats from values in confusion matrix:
-        - Accuracy
-        - Recall
-        - Confidence Interval
-        
-    Args:
-        confusion_matrix (list): confusion matrix generated in confusion_matrix()
-    """
     print("Stats From Run")
     print("--------------\n")
     # Convert input to a numpy array for easier manipulation
@@ -225,15 +158,6 @@ def calculate_stats(confusion_matrix: list) -> None:
 
 
 def identify_and_encode(dataset: pd.DataFrame) -> pd.DataFrame:
-    """
-    Identify the type of data in provided dataset and encode categorical data
-
-    Args:
-        data (_type_): dataset provided
-
-    Returns:
-        (pd.DataFrame): Updated dataframe with categorical data encoded
-    """
     # Identify categorical columns: Assume non-numeric columns are categorical
     categorical_columns = dataset.select_dtypes(include=["object"]).columns.tolist()
 
@@ -246,9 +170,6 @@ def identify_and_encode(dataset: pd.DataFrame) -> pd.DataFrame:
 
 
 def main():
-    """
-    Main method for knn.py file
-    """
     start = time.time()
 
     parser = argparse.ArgumentParser(description="Run K-Nearest Neighbors Algorithm.")
@@ -266,11 +187,6 @@ def main():
     k_value = args.k_value
     train_set_percent = args.train_percent
     random_seed = args.random_seed
-
-    # Validate p_value if Minkowski distance is selected
-    if args.distance_function == "M" and args.p_value < 1:
-        print("pValue must be at least 1 for Minkowski distance.")
-        exit()
         
     # Validate training set percentage
     if not (0 < train_set_percent < 1):
@@ -301,7 +217,7 @@ def main():
     testing_set = testing_set.values.tolist()
 
     # Run KNN Algorithm 
-    test_set_results = k_nearest_neighbors(k_value, training_set, testing_set, dist_choice, p_value)
+    test_set_results = k_nearest_neighbors(k_value, training_set, testing_set, dist_choice)
     
     # Produce Confusion Matrix from results
     result_c = confusion_matrix(
