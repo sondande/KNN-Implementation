@@ -142,8 +142,8 @@ def k_nearest_neighbors(
         # Add predicted value to x_test_instance 
         x_test_instance.append(predicted_label)
 
-    print("Finished Running KNN Algorithm\n\nStats From Run:")
-    print("------------------------------")
+    print("Finished Running KNN Algorithm\n")
+    print("-----------------")
     return testing_set
 
 
@@ -200,6 +200,14 @@ def confusion_matrix(
             confusion_matrix_result.append(row)
             writer.writerow(row)
 
+    print("Confusion Matrix")
+    print("-----------------")
+    # Print contents from output file
+    with open(output_file_path, 'r') as outputFile:
+        # Read and print each line from the file
+        for line in outputFile:
+            print(line.strip())
+    print("-----------------")
     return confusion_matrix_result
 
 
@@ -213,6 +221,8 @@ def calculate_stats(confusion_matrix: list) -> None:
     Args:
         confusion_matrix (list): confusion matrix generated in confusion_matrix()
     """
+    print("Stats From Run")
+    print("--------------\n")
     # Convert input to a numpy array for easier manipulation
     matrix = np.array(confusion_matrix)
 
