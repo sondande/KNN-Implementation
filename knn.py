@@ -2,8 +2,6 @@
 KNN - Implementation 
 By Sagana Ondande
 Github: https://github.com/sondande
-
-This file is an implementation of KNN (K-Nearest-Neighbors) Algorithm implemented from scratch.
 """
 
 import argparse

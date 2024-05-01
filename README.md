@@ -1,13 +1,12 @@
-# hw1-knn
-HW1: k-Nearest Neighbors
+# K-Nearest Neighbors Implementation
 
-This assignment contains four data sets which are based on three publicly available benchmarks:
+This project contains four data sets which are based on three publicly available benchmarks:
 
 1. monks1.csv: A data set describing two classes of robots using all nominal attributes and a binary label.  This data set has a simple rule set for determining the label: if head_shape = body_shape  jacket_color = red, then yes, else no. Each of the attributes in the monks1 data set are nominal.  Monks1 was one of the first machine learning challenge problems (http://www.mli.gmu.edu/papers/91-95/91-28.pdf).  This data set comes from the UCI Machine Learning Repository: http://archive.ics.uci.edu/ml/datasets/MONK%27s+Problems
 
 2. penguins.csv: A data set describing observed measurements of different animals belonging to three species of penguins.  The four attributes are each continuous measurements, and the label is the species of penguin.  Special thanks and credit to Professor Allison Horst at the University of California Santa Barbara for making this data set public: see this Twitter post and thread with more information (https://twitter.com/allison_horst/status/1270046399418138625) and GitHub repository (https://github.com/allisonhorst/palmerpenguins).
 
-3. mnist_100.csv: A data set of optical character recognition of numeric digits from images.  Each instance represents a different grayscale 28x28 pixel image of a handwritten numeric digit (from 0 through 9).  The attributes are the intensity values of the 784 pixels. Each attribute is ordinal (treat them as continuous for the purpose of this assignment) and a nominal label.  This version of MNIST contains 100 instances of each handwritten numeric digit, randomly sampled from the original training data for MNIST.  The overall MNIST data set is one of the main benchmarks in machine learning: http://yann.lecun.com/exdb/mnist/.  It was converted to CSV file using the python code provided at: https://quickgrid.blogspot.com/2017/05/Converting-MNIST-Handwritten-Digits-Dataset-into-CSV-with-Sorting-and-Extracting-Labels-and-Features-into-Different-CSV-using-Python.html
+3. mnist_100.csv: A data set of optical character recognition of numeric digits from images.  Each instance represents a different grayscale 28x28 pixel image of a handwritten numeric digit (from 0 through 9).  The attributes are the intensity values of the 784 pixels. Each attribute is ordinal and a nominal label.  This version of MNIST contains 100 instances of each handwritten numeric digit, randomly sampled from the original training data for MNIST.  The overall MNIST data set is one of the main benchmarks in machine learning: http://yann.lecun.com/exdb/mnist/.  It was converted to CSV file using the python code provided at: https://quickgrid.blogspot.com/2017/05/Converting-MNIST-Handwritten-Digits-Dataset-into-CSV-with-Sorting-and-Extracting-Labels-and-Features-into-Different-CSV-using-Python.html
 
 4. mnist_1000.csv: The same as mnist_100, except containing 1000 instances of each handwritten numeric digit.
 
@@ -78,7 +77,7 @@ significantly outperformed the first (at a 0.05 level).
    - This makes sense to me because we are searching for the nearest neighbor to our value. From this, once we find the closest values, it becomes a find the the highest value from our k values. From this, if we have more neighbors, it extends our range of distance which can result in the answer to be less accurate. 
    From this, if there are more results that are the opposite of the one we want, we will predict the wrong value due to the majority of values are of the wrong label compared to the ones that are more closely similar to the test instance we are evaluating. 
 
-5) (BONUS) Pick 10 different random seeds (document them in your README file) and rerun k- Nearest Neighbors with a k = 1 on the penguins.csv data. Record the average of the accuracy across the 10 runs.
+5) Pick 10 different random seeds (document them in your README file) and rerun k- Nearest Neighbors with a k = 1 on the penguins.csv data. Record the average of the accuracy across the 10 runs.
 Next, rerun the program on the same 10 seeds but only consider two attributes at a time (ignoring the other two attributes not in the chosen pair). Record the average accuracy for each pair of attributes across the 10 seeds. Since there are four attributes, there are six possible pairs of attributes (e.g., bill_length_mm-bill_depth_mm is one pair, so flipper_length_mm and body_mass_g would be ignored for this pair).
 Finally, compare the average accuracy results between (1-6) all six pairs of attributes and (7) the results using all four attributes. Did any pairs of attributes do as well (or better) than learning using all four attributes? Speculate why you observed your results.
 
@@ -176,13 +175,3 @@ using all 4 the attributes were:
 I believe these pair of attributes performed better as these are key features for distinguishing penguins. I can see that compared to body mass which is more individualized,
 I can see that the key things that define certain species of ducks could be generalized and pinpointed by the length of their ill and their tail. 
 Overall, these let the algorithm perform better by clearing up noise in the dataset to pinpoint the key features that can help with the classification. 
-
-## 2) A short paragraph describing your experience during the assignment (what did you enjoy,what was difficult, etc.)
-I really enjoyed this assignment. I enjoyed the process of reading in the csv file and understanding the format that the files came in, how to optimizer the code to make it more efficient, and also the overall analysis of the algorithm. I found finding ways to make my code faster difficult, but I know once we learn more things about how to optimize code in python, I'll come back to this assignment and revise it to the best of my ability.
-
-## 3) An estimation of how much time you spent on the assignment
-I spent about 20 hours on this assignment.
-
-## 4) Honor Code
-I have adhered to the honor code on this assignment.
-- Sagana Ondande
